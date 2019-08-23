@@ -26,7 +26,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview5.19227.1" Condition="'$(TargetFramework)' == 'net47'"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" Condition="'$(TargetFramework)' == 'netcoreapp2.2'"/>
     <PackageReference Include="ModuleInit.Fody" Version="2.0.0" PrivateAssets="all" />
-    <PackageReference Include="Obsolete.Fody" Version="5.0.0" PrivateAssets="all" />
+    <PackageReference Include="Obsolete.Fody" Version="5.1.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
