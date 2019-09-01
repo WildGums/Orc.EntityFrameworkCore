@@ -1,8 +1,8 @@
 ﻿namespace Orc.EntityFrameworkCore.Tests
 {
     using System.Runtime.CompilerServices;
-    using ApiApprover;
     using NUnit.Framework;
+    using PublicApiGenerator;
 
     [TestFixture]
     public class PublicApiFacts
@@ -12,7 +12,7 @@
         {
             var assembly = typeof(DbContextExtensions).Assembly;
 
-            PublicApiApprover.ApprovePublicApi(assembly);
+            ApiGenerator.GeneratePublicApi(assembly);
         }
     }
 }
