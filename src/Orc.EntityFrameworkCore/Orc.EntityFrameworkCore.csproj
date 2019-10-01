@@ -1,4 +1,4 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>net47;netcoreapp3.0;netcoreapp2.2</TargetFrameworks>
     <AssemblyName>Orc.EntityFrameworkCore</AssemblyName>
@@ -20,7 +20,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.3.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview8.19045.11" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview5.19227.1" Condition="'$(TargetFramework)' == 'net47'" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" Condition="'$(TargetFramework)' == 'netcoreapp2.2'" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
