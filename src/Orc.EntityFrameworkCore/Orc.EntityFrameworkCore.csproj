@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>net47;netcoreapp3.0;netcoreapp2.2</TargetFrameworks>
+    <TargetFrameworks>net47;netcoreapp3.0;</TargetFrameworks>
     <AssemblyName>Orc.EntityFrameworkCore</AssemblyName>
     <RootNamespace>Orc.EntityFrameworkCore</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>

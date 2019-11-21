@@ -24,7 +24,7 @@
 
             var entityType = typeof(TEntity);
             var modelEntityType = context.GetModelEntityType(entityType);
-
+#if NETCOREAPP3_0
             var primaryKey = modelEntityType.GetKeys().FirstOrDefault(key => key.IsPrimaryKey());
             if (primaryKey != null)
             {
@@ -34,6 +34,9 @@
                     yield return propertyInfo.GetValue(entity);
                 }
             }
+#else
+            return null;
+#endif
         }
 
         public static void UpdateEntity<TEntity>(this DbContext context, TEntity storedEntity, TEntity entity, params string[] ignoreProperties)
@@ -70,6 +73,6 @@
 
             return modelEntityType;
         }
-        #endregion
+#endregion
     }
 }
