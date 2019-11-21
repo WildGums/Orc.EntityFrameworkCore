@@ -25,8 +25,7 @@
             var entityType = typeof(TEntity);
             var modelEntityType = context.GetModelEntityType(entityType);
 
-            IKey primaryKey = null; // modelEntityType.GetKeys().FirstOrDefault(key => key.IsPrimaryKey());
-
+            var primaryKey = modelEntityType.GetKeys().FirstOrDefault(key => key.IsPrimaryKey());
             if (primaryKey != null)
             {
                 foreach (var primaryKeyProperty in primaryKey.Properties)
@@ -54,6 +53,8 @@
                     propertyInfo.SetValue(storedEntity, propertyInfo.GetValue(entity));
                 }
             }
+
+            context.Set<TEntity>().Update(storedEntity);
         }
 
         public static IEntityType GetModelEntityType(this DbContext context, Type entityType)

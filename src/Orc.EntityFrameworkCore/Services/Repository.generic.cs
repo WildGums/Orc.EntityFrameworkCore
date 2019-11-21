@@ -179,7 +179,6 @@
                 if (storedEntity != null)
                 {
                     _context.UpdateEntity(storedEntity, entity, ignoreProperties);
-                    _context.Set<TEntity>().Update(storedEntity);
                     return storedEntity;
                 }
             }
