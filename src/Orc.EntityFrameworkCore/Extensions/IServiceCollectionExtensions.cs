@@ -10,7 +10,7 @@ namespace Orc.EntityFrameworkCore
 
     public static class IServiceCollectionExtensions
     {
-        public static void AddEntityFrameworkCore(this IServiceCollection serviceCollection)
+        public static void AddOrcEntityFrameworkCore(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
             serviceCollection.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -21,6 +21,11 @@ namespace Orc.EntityFrameworkCore
             where TDatabaseSeeder : class, IDatabaseSeeder
         {
             serviceCollection.AddScoped<IDatabaseSeeder, TDatabaseSeeder>();
+        }
+
+        public static void AddDatabaseSeeder(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddScoped<IDatabaseSeeder, DatabaseSeeder>();
         }
 #endif
     }
