@@ -18,31 +18,29 @@ namespace Orc.EntityFrameworkCore
 
     public abstract class DatabaseSeeder : IDatabaseSeeder
     {
-        private readonly IApplicationBuilder _appBuilder;
 
-        public DatabaseSeeder(IApplicationBuilder appBuilder)
+        public DatabaseSeeder()
         {
-            Argument.IsNotNull(()=> appBuilder);
-
-            _appBuilder = appBuilder;
         }
 
-        public void InitializeDatabase()
+        public void InitializeDatabase(IApplicationBuilder appBuilder)
         {
-            Migrate();
-            SeedAsync().Wait();
+            Argument.IsNotNull(() => appBuilder);
+
+            Migrate(appBuilder);
+            SeedAsync(appBuilder).Wait();
         }
 
-        private void Migrate()
+        private void Migrate(IApplicationBuilder appBuilder)
         {
-            using (var serviceScope = _appBuilder.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = appBuilder.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<DbContext>();
                 context.Database.Migrate();
             }
         }
 
-        protected async virtual Task SeedAsync()
+        protected async virtual Task SeedAsync(IApplicationBuilder appBuilder)
         {
         }
     }

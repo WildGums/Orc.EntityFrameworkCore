@@ -22,7 +22,7 @@ namespace Orc.EntityFrameworkCore
             using (var serviceScope = @this.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<IDatabaseSeeder>();
-                context.InitializeDatabase();
+                context.InitializeDatabase(@this);
             }
         }
 
