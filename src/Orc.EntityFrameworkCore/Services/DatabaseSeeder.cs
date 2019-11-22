@@ -7,7 +7,6 @@
 #if NETCOREAPP3_0
 namespace Orc.EntityFrameworkCore
 {
-    using System;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
