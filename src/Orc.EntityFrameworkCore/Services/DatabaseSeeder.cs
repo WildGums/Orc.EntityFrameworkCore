@@ -16,13 +16,8 @@ namespace Orc.EntityFrameworkCore
 
     using Microsoft.AspNetCore.Builder;
 
-    public abstract class DatabaseSeeder : IDatabaseSeeder
+    public  class DatabaseSeeder : IDatabaseSeeder
     {
-
-        public DatabaseSeeder()
-        {
-        }
-
         public void InitializeDatabase(IApplicationBuilder appBuilder)
         {
             Argument.IsNotNull(() => appBuilder);
