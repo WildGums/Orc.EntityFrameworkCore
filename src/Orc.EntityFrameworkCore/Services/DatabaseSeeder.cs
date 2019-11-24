@@ -4,17 +4,15 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-#if NETCOREAPP3_0
 namespace Orc.EntityFrameworkCore
 {
     using System.Threading.Tasks;
 
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.DependencyInjection;
-
     using Catel;
 
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
 
     public  class DatabaseSeeder : IDatabaseSeeder
     {
@@ -40,5 +38,4 @@ namespace Orc.EntityFrameworkCore
         }
     }
 }
-#endif
 
