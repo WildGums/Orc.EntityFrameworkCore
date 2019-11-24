@@ -26,7 +26,7 @@ Parameters["UseVisualStudioPrerelease"] = "true";
 
 Components.Add("Orc.EntityFrameworkCore");
 
-TestProjects.Add("Orc.EntityFrameworkCore.Tests");
+// TestProjects.Add("Orc.EntityFrameworkCore.Tests");
 
 //=======================================================
 // REQUIRED INITIALIZATION, DO NOT CHANGE
