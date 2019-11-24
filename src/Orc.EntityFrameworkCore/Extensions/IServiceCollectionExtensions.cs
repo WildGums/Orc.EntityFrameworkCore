@@ -16,7 +16,6 @@ namespace Orc.EntityFrameworkCore
             serviceCollection.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
-#if NETCOREAPP3_0
         public static void AddDatabaseSeeder<TDatabaseSeeder>(this IServiceCollection serviceCollection)
             where TDatabaseSeeder : class, IDatabaseSeeder
         {
@@ -27,6 +26,5 @@ namespace Orc.EntityFrameworkCore
         {
             serviceCollection.AddScoped<IDatabaseSeeder, DatabaseSeeder>();
         }
-#endif
     }
 }

@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-#if !NET47
 namespace Orc.EntityFrameworkCore
 {
     using Catel;
@@ -29,4 +28,3 @@ namespace Orc.EntityFrameworkCore
         #endregion
     }
 }
-#endif
