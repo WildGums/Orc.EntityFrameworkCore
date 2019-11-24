@@ -30,10 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Orc.EntityFrameworkCore\Orc.EntityFrameworkCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="*.approved.cs;*.received.cs" />
   </ItemGroup>
 
