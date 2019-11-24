@@ -23,7 +23,7 @@
 
             var entityType = typeof(TEntity);
             var modelEntityType = context.GetModelEntityType(entityType);
-
+#if !NET47
             var primaryKey = modelEntityType.GetKeys().FirstOrDefault(key => key.IsPrimaryKey());
             if (primaryKey != null)
             {
@@ -33,6 +33,10 @@
                     yield return propertyInfo.GetValue(entity);
                 }
             }
+#else
+                    throw new NotSupportedException();
+#endif
+
         }
 
         public static void UpdateEntity<TEntity>(this DbContext context, TEntity storedEntity, TEntity entity, params string[] ignoreProperties)

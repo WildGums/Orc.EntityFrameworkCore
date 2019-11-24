@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-#if NETCOREAPP3_0
+#if !NET47
 namespace Orc.EntityFrameworkCore
 {
     using Catel;
