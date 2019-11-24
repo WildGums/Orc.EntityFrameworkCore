@@ -53,29 +53,29 @@ private static void BuildTestProjects(BuildContext buildContext)
 
 private static void RunUnitTests(BuildContext buildContext, string projectName)
 {
-    // var testResultsDirectory = string.Format("{0}/testresults/{1}/", buildContext.General.OutputRootDirectory, projectName);
+    var testResultsDirectory = string.Format("{0}/testresults/{1}/", buildContext.General.OutputRootDirectory, projectName);
 
-    //     buildContext.CakeContext.CreateDirectory(testResultsDirectory);
+    buildContext.CakeContext.CreateDirectory(testResultsDirectory);
 
-    //     var ranTests = false;
-    //     var failed = false;
+    var ranTests = false;
+    var failed = false;
 
-    //     try
-    //     {
-    //         if (IsDotNetCoreProject(buildContext, projectName))
-    //         {
-    //             buildContext.CakeContext.Information("Project '{0}' is a .NET core project, using 'dotnet test' to run the unit tests", projectName);
+    try
+    {
+        if (IsDotNetCoreProject(buildContext, projectName))
+        {
+            buildContext.CakeContext.Information("Project '{0}' is a .NET core project, using 'dotnet test' to run the unit tests", projectName);
 
-    //             var projectFileName = GetProjectFileName(buildContext, projectName);
+            var projectFileName = GetProjectFileName(buildContext, projectName);
 
-    //             buildContext.CakeContext.DotNetCoreTest(projectFileName, new DotNetCoreTestSettings
-    //             {
-    //                 Configuration = buildContext.General.Solution.ConfigurationName,
-    //                 NoRestore = true,
-    //                 NoBuild = true,
-    //                 OutputDirectory = string.Format("{0}/{1}", GetProjectOutputDirectory(buildContext, projectName), buildContext.Tests.TargetFramework),
-    //                 ResultsDirectory = testResultsDirectory
-    //             });
+            buildContext.CakeContext.DotNetCoreTest(projectFileName, new DotNetCoreTestSettings
+            {
+                Configuration = buildContext.General.Solution.ConfigurationName,
+                NoRestore = true,
+                NoBuild = true,
+                OutputDirectory = string.Format("{0}/{1}", GetProjectOutputDirectory(buildContext, projectName), buildContext.Tests.TargetFramework),
+                ResultsDirectory = testResultsDirectory
+            });
 
             // Information("Project '{0}' is a .NET core project, using 'dotnet vstest' to run the unit tests", projectName); 
 
@@ -87,39 +87,39 @@ private static void RunUnitTests(BuildContext buildContext, string projectName)
             //     ResultsDirectory = testResultsDirectory
             // });
 
-    //             ranTests = true;
-    //    }
-    //         else
-    //         {
-    //             buildContext.CakeContext.Information("Project '{0}' is a .NET project, using '{1} runner' to run the unit tests", projectName, buildContext.Tests.Framework);
+            ranTests = true;
+        }
+        else
+        {
+            buildContext.CakeContext.Information("Project '{0}' is a .NET project, using '{1} runner' to run the unit tests", projectName, buildContext.Tests.Framework);
 
-    //             if (buildContext.Tests.Framework.ToLower().Equals("nunit"))
-    //             {
-    //                 RunTestsUsingNUnit(buildContext, projectName, buildContext.Tests.TargetFramework, testResultsDirectory);
+            if (buildContext.Tests.Framework.ToLower().Equals("nunit"))
+            {
+                RunTestsUsingNUnit(buildContext, projectName, buildContext.Tests.TargetFramework, testResultsDirectory);
 
-    //                 ranTests = true;
-    //             }
-    //         }
-    //     }
-        // catch (Exception ex)
-//    {
-//        buildContext.CakeContext.Warning("An exception occurred: {0}", ex.Message);
+                ranTests = true;
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        buildContext.CakeContext.Warning("An exception occurred: {0}", ex.Message);
 
-//        failed = true;   
-//    }
+        failed = true;   
+    }
 
-//    if (ranTests)
-//    {
-//        buildContext.CakeContext.Information("Results are available in '{0}'", testResultsDirectory);
-//    }
-//    else if (failed)
-//    {
-//        throw new Exception("Unit test execution failed");
-//    }
-//    else
-//    {
-//        buildContext.CakeContext.Warning("No tests were executed, check whether the used test framework '{0}' is available", buildContext.Tests.Framework);
-//    }
+    if (ranTests)
+    {
+        buildContext.CakeContext.Information("Results are available in '{0}'", testResultsDirectory);
+    }
+    else if (failed)
+    {
+        throw new Exception("Unit test execution failed");
+    }
+    else
+    {
+        buildContext.CakeContext.Warning("No tests were executed, check whether the used test framework '{0}' is available", buildContext.Tests.Framework);
+    }
 }
 
 //-------------------------------------------------------------
