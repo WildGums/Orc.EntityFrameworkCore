@@ -51,7 +51,7 @@ private TestsContext InitializeTestsContext(BuildContext buildContext, IBuildCon
         Items = TestProjects,
 
         Framework = buildContext.BuildServer.GetVariable("TestFramework", "nunit", showValue: true),
-        TargetFramework = buildContext.BuildServer.GetVariable("TestTargetFramework", "net47", showValue: true),
+        TargetFramework = buildContext.BuildServer.GetVariable("TestTargetFramework", "netcoreapp3.0", showValue: true),
         ProcessBit = buildContext.BuildServer.GetVariable("TestProcessBit", "X86", showValue: true)
     };
 
