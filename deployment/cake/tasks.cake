@@ -377,12 +377,12 @@ Task("Test")
 {    
     await buildContext.SourceControl.MarkBuildAsPendingAsync("Test");
     
-    // foreach (var testProject in buildContext.Tests.Items)
-    // {
-    //    buildContext.CakeContext.LogSeparator("Running tests for '{0}'", testProject);
+    foreach (var testProject in buildContext.Tests.Items)
+    {
+        buildContext.CakeContext.LogSeparator("Running tests for '{0}'", testProject);
 
-    //    RunUnitTests(buildContext, testProject);
-    //}
+        RunUnitTests(buildContext, testProject);
+    }
 
     await buildContext.SourceControl.MarkBuildAsSucceededAsync("Test");
 })
