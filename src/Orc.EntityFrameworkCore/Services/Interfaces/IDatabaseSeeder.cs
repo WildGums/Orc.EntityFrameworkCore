@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-#if NETCOREAPP3_0
 namespace Orc.EntityFrameworkCore
 {
     using Microsoft.AspNetCore.Builder;
@@ -14,4 +13,3 @@ namespace Orc.EntityFrameworkCore
         void InitializeDatabase(IApplicationBuilder @this);
     }
 }
-#endif

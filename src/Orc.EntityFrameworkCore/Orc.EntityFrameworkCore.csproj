@@ -1,11 +1,11 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
     <AssemblyName>Orc.EntityFrameworkCore</AssemblyName>
     <RootNamespace>Orc.EntityFrameworkCore</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageId>Orc.EntityFrameworkCore</PackageId>
-    <PackageVersion>1.0.0-alpha0118</PackageVersion>
+    <PackageVersion>1.0.0-alpha0183</PackageVersion>
     <Description>Entity Framework Core extensions.</Description>
     <PackageTags>orc;entity;framework;ef;core</PackageTags>
   </PropertyGroup>
@@ -20,8 +20,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="LoadAssembliesOnStartup.Fody" Version="4.3.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.1"  />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.1" Condition="'$(TargetFramework)' == 'netcoreapp3.0'"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.1" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" /> 
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" Condition="'$(TargetFramework)' == 'netcoreapp3.1'"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.0" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
     <PackageReference Include="ModuleInit.Fody" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Obsolete.Fody" Version="5.2.0" PrivateAssets="all" />
   </ItemGroup>
@@ -39,7 +41,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App"  />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="NETStandard.Library" Version="2.0.1" />
