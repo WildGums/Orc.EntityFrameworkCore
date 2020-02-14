@@ -233,7 +233,6 @@
             if (storedEntity != null)
             {
                 _context.UpdateEntity(storedEntity, entity);
-                _context.Set<TEntity>().Update(storedEntity);
             }
         }
         #endregion
