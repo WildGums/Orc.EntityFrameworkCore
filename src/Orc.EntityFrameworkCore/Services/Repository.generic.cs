@@ -228,7 +228,7 @@
         {
             Argument.IsNotNull(() => entity);
 
-            var keyValues = _context.GetPrimaryKeyValues(entity);
+            var keyValues = _context.GetPrimaryKeyValues(entity).ToArray();
             var storedEntity = _context.Set<TEntity>().Find(keyValues);
             if (storedEntity != null)
             {
