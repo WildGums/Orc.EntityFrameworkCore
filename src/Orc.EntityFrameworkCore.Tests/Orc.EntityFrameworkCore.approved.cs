@@ -1,13 +1,19 @@
-﻿[assembly: System.Resources.NeutralResourcesLanguageAttribute("en-US")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute("Orc.EntityFrameworkCore.Tests")]
-[assembly: System.Runtime.Versioning.TargetFrameworkAttribute(".NETFramework,Version=v4.7", FrameworkDisplayName=".NET Framework 4.7")]
-public class static ModuleInitializer
+﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Orc.EntityFrameworkCore.Tests")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v3.1", FrameworkDisplayName="")]
+public static class ModuleInitializer
 {
     public static void Initialize() { }
 }
 namespace Orc.EntityFrameworkCore
 {
-    public class static DbContextExtensions
+    public class DatabaseSeeder : Orc.EntityFrameworkCore.IDatabaseSeeder
+    {
+        public DatabaseSeeder() { }
+        public void InitializeDatabase(Microsoft.AspNetCore.Builder.IApplicationBuilder appBuilder) { }
+        protected virtual System.Threading.Tasks.Task SeedAsync(Microsoft.AspNetCore.Builder.IApplicationBuilder appBuilder) { }
+    }
+    public static class DbContextExtensions
     {
         public static Microsoft.EntityFrameworkCore.Metadata.IEntityType GetModelEntityType(this Microsoft.EntityFrameworkCore.DbContext context, System.Type entityType) { }
         public static System.Collections.Generic.IEnumerable<object> GetPrimaryKeyValues<TEntity>(this Microsoft.EntityFrameworkCore.DbContext context, TEntity entity)
@@ -18,6 +24,14 @@ namespace Orc.EntityFrameworkCore
     public class EntityTypeException : System.Exception
     {
         public EntityTypeException(string message) { }
+    }
+    public static class IApplicationBuilderExtensions
+    {
+        public static void UseDatabaseSeeder(this Microsoft.AspNetCore.Builder.IApplicationBuilder @this) { }
+    }
+    public interface IDatabaseSeeder
+    {
+        void InitializeDatabase(Microsoft.AspNetCore.Builder.IApplicationBuilder @this);
     }
     public interface IRepository
     {
@@ -30,8 +44,8 @@ namespace Orc.EntityFrameworkCore
         System.Linq.IQueryable<TEntity> All();
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction();
         bool Contains(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate);
-        void Delete(TEntity entity);
         void Delete(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate);
+        void Delete(TEntity entity);
         System.Linq.IQueryable<TEntity> Find(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate);
         TEntity Get(TKey key);
         void SaveChanges();
@@ -43,6 +57,13 @@ namespace Orc.EntityFrameworkCore
     }
     public interface IRepository<TEntity, TKey, TDbContext> : Orc.EntityFrameworkCore.IRepository, Orc.EntityFrameworkCore.IRepository<TEntity, TKey>
         where TEntity :  class { }
+    public static class IServiceCollectionExtensions
+    {
+        public static void AddDatabaseSeeder(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
+        public static void AddDatabaseSeeder<TDatabaseSeeder>(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection)
+            where TDatabaseSeeder :  class, Orc.EntityFrameworkCore.IDatabaseSeeder { }
+        public static void AddOrcEntityFrameworkCore(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
+    }
     public interface IUnitOfWork
     {
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction();
@@ -65,15 +86,15 @@ namespace Orc.EntityFrameworkCore
         public System.Linq.IQueryable<TEntity> All() { }
         public Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction() { }
         public bool Contains(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate) { }
-        public void Delete(TEntity entity) { }
         public void Delete(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate) { }
+        public void Delete(TEntity entity) { }
         public System.Linq.IQueryable<TEntity> Find(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate) { }
         public TEntity Get(TKey key) { }
         public void SaveChanges() { }
         public System.Threading.Tasks.Task SaveChangesAsync() { }
         public TEntity Single(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate) { }
-        public void Sync(TEntity entity) { }
         public void Sync() { }
+        public void Sync(TEntity entity) { }
         public TEntity TryAddOrUpdate(TEntity entity, params string[] ignoreProperties) { }
         public void Update(TEntity entity) { }
     }
