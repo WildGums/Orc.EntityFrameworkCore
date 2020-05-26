@@ -1,13 +1,10 @@
 ﻿namespace Orc.EntityFrameworkCore
 {
+    using System.Transactions;
+
     using Microsoft.EntityFrameworkCore.Storage;
 
-    /*
-     public interface KeyedEntity<KeyType> 
-    {
-        KeyType Key { set; get; }
-    }
-    */
+    using IsolationLevel = System.Data.IsolationLevel;
 
     /// <summary>
     /// The UnitOfWork interface.
@@ -39,6 +36,17 @@
         /// The <see cref="IDbContextTransaction" />.
         /// </returns>
         IDbContextTransaction BeginTransaction();
+
+        /// <summary>
+        /// The begin transaction.
+        /// </summary>
+        /// <param name="isolationLevel">
+        ///     The isolation level.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDbContextTransaction"/>.
+        /// </returns>
+        IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel);
         #endregion
     }
 }

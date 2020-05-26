@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
@@ -83,6 +84,20 @@
         public IDbContextTransaction BeginTransaction()
         {
             return _context.Database.BeginTransaction();
+        }
+
+        /// <summary>
+        /// The begin transaction.
+        /// </summary>
+        /// <param name="isolationLevel">
+        /// The isolation level.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDbContextTransaction"/>.
+        /// </returns>
+        public IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel)
+        {
+            return _context.Database.BeginTransaction(isolationLevel);
         }
 
         /// <summary>

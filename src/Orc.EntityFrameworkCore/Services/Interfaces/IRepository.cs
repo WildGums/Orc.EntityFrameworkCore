@@ -122,7 +122,18 @@
         /// <returns>
         /// The <see cref="IDbTransaction" />.
         /// </returns>
-        IDbContextTransaction BeginTransaction();
+        IDbContextTransaction BeginTransaction();  
+        
+        /// <summary>
+        /// The begin transaction.
+        /// </summary>
+        /// <param name="isolationLevel">
+        /// The isolation Level.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDbTransaction"/>.
+        /// </returns>
+        IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel);
 
         /// <summary>
         /// Save changes async

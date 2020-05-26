@@ -2,10 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Transactions;
+
     using Catel;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
     using Microsoft.Extensions.DependencyInjection;
+
+    using IsolationLevel = System.Data.IsolationLevel;
 
     /// <summary>
     ///     The unit of work base.
@@ -98,6 +102,19 @@
             return _dbContext.Database.BeginTransaction();
         }
 
+        /// <summary>
+        /// The begin transaction.
+        /// </summary>
+        /// <param name="isolationLevel">
+        /// The isolation level.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDbContextTransaction"/>.
+        /// </returns>
+        public IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel)
+        {
+            return _dbContext.Database.BeginTransaction(isolationLevel);
+        }
         #endregion
 
         #region Methods
