@@ -43,6 +43,7 @@ namespace Orc.EntityFrameworkCore
         void Add(TEntity entity);
         System.Linq.IQueryable<TEntity> All();
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction();
+        Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction(System.Data.IsolationLevel isolationLevel);
         bool Contains(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate);
         void Delete(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate);
         void Delete(TEntity entity);
@@ -67,6 +68,7 @@ namespace Orc.EntityFrameworkCore
     public interface IUnitOfWork
     {
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction();
+        Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction(System.Data.IsolationLevel isolationLevel);
         Orc.EntityFrameworkCore.IRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
             where TEntity :  class
         ;
@@ -85,6 +87,7 @@ namespace Orc.EntityFrameworkCore
         public void Add(TEntity entity) { }
         public System.Linq.IQueryable<TEntity> All() { }
         public Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction() { }
+        public Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction(System.Data.IsolationLevel isolationLevel) { }
         public bool Contains(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate) { }
         public void Delete(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate) { }
         public void Delete(TEntity entity) { }
@@ -107,6 +110,7 @@ namespace Orc.EntityFrameworkCore
     {
         public UnitOfWork(System.IServiceProvider serviceProvider) { }
         public Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction() { }
+        public Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction(System.Data.IsolationLevel isolationLevel) { }
         public void Dispose() { }
         public Orc.EntityFrameworkCore.IRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
             where TEntity :  class { }
