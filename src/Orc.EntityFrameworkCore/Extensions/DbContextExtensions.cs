@@ -25,7 +25,7 @@
             var modelEntityType = context.GetModelEntityType(entityType);
 
             var primaryKey = modelEntityType.GetKeys().FirstOrDefault(key => key.IsPrimaryKey());
-            if (primaryKey != null)
+            if (primaryKey is not null)
             {
                 foreach (var primaryKeyProperty in primaryKey.Properties)
                 {

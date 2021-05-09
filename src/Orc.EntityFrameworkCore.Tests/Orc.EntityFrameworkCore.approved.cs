@@ -1,6 +1,7 @@
 ﻿[assembly: System.Resources.NeutralResourcesLanguage("en-US")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Orc.EntityFrameworkCore.Tests")]
-[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v3.1", FrameworkDisplayName="")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v5.0", FrameworkDisplayName="")]
+public static class LoadAssembliesOnStartup { }
 public static class ModuleInitializer
 {
     public static void Initialize() { }
@@ -70,8 +71,7 @@ namespace Orc.EntityFrameworkCore
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction();
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction(System.Data.IsolationLevel isolationLevel);
         Orc.EntityFrameworkCore.IRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
-            where TEntity :  class
-        ;
+            where TEntity :  class;
         void SaveChanges();
     }
     public class Repository<TEntity, TKey> : Orc.EntityFrameworkCore.Repository<TEntity, TKey, Microsoft.EntityFrameworkCore.DbContext>

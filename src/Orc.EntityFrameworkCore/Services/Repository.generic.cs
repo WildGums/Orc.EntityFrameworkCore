@@ -191,7 +191,7 @@
             if (keyValues.Length > 0)
             {
                 var storedEntity = _context.Set<TEntity>().Find(keyValues);
-                if (storedEntity != null)
+                if (storedEntity is not null)
                 {
                     _context.UpdateEntity(storedEntity, entity, ignoreProperties);
                     return storedEntity;
@@ -245,7 +245,7 @@
 
             var keyValues = _context.GetPrimaryKeyValues(entity).ToArray();
             var storedEntity = _context.Set<TEntity>().Find(keyValues);
-            if (storedEntity != null)
+            if (storedEntity is not null)
             {
                 _context.UpdateEntity(storedEntity, entity);
             }
