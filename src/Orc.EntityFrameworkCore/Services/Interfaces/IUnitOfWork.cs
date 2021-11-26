@@ -1,5 +1,6 @@
 ﻿namespace Orc.EntityFrameworkCore
 {
+    using System;
     using System.Transactions;
 
     using Microsoft.EntityFrameworkCore.Storage;
@@ -9,9 +10,8 @@
     /// <summary>
     /// The UnitOfWork interface.
     /// </summary>
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        #region Methods
         /// <summary>
         /// Gets a repository instance.
         /// </summary>
@@ -47,6 +47,5 @@
         /// The <see cref="IDbContextTransaction"/>.
         /// </returns>
         IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel);
-        #endregion
     }
 }

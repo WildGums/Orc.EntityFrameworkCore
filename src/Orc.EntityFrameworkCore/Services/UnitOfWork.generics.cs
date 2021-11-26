@@ -17,7 +17,7 @@
     /// <typeparam name="TDbContext">
     ///     The database context type.
     /// </typeparam>
-    public class UnitOfWork<TDbContext> : IUnitOfWork 
+    public class UnitOfWork<TDbContext> : IUnitOfWork
         where TDbContext : DbContext, IDisposable
     {
         #region Fields
@@ -117,12 +117,10 @@
         }
         #endregion
 
-        #region Methods
-        public void Dispose()
+        public virtual void Dispose()
         {
             _serviceScope.Dispose();
         }
-        #endregion
     }
 
     public class UnitOfWork : UnitOfWork<DbContext>

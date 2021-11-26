@@ -66,7 +66,7 @@ namespace Orc.EntityFrameworkCore
             where TDatabaseSeeder :  class, Orc.EntityFrameworkCore.IDatabaseSeeder { }
         public static void AddOrcEntityFrameworkCore(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
     }
-    public interface IUnitOfWork
+    public interface IUnitOfWork : System.IDisposable
     {
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction();
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction(System.Data.IsolationLevel isolationLevel);
@@ -105,13 +105,13 @@ namespace Orc.EntityFrameworkCore
     {
         public UnitOfWork(System.IServiceProvider serviceProvider) { }
     }
-    public class UnitOfWork<TDbContext> : Orc.EntityFrameworkCore.IUnitOfWork
+    public class UnitOfWork<TDbContext> : Orc.EntityFrameworkCore.IUnitOfWork, System.IDisposable
         where TDbContext : Microsoft.EntityFrameworkCore.DbContext, System.IDisposable
     {
         public UnitOfWork(System.IServiceProvider serviceProvider) { }
         public Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction() { }
         public Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction(System.Data.IsolationLevel isolationLevel) { }
-        public void Dispose() { }
+        public virtual void Dispose() { }
         public Orc.EntityFrameworkCore.IRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
             where TEntity :  class { }
         public void SaveChanges() { }
