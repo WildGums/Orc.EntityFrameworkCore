@@ -40,6 +40,7 @@
         /// The service provider.
         /// </summary>
         private readonly IServiceProvider _serviceScopeServiceProvider;
+        private bool _disposedValue;
         #endregion
 
         #region Constructors
@@ -115,12 +116,27 @@
         {
             return _dbContext.Database.BeginTransaction(isolationLevel);
         }
-        #endregion
 
-        public virtual void Dispose()
+        protected virtual void Dispose(bool disposing)
         {
-            _serviceScope.Dispose();
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    _serviceScope.Dispose();
+                }
+
+                _disposedValue = true;
+            }
         }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 
     public class UnitOfWork : UnitOfWork<DbContext>
