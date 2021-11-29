@@ -111,7 +111,8 @@ namespace Orc.EntityFrameworkCore
         public UnitOfWork(System.IServiceProvider serviceProvider) { }
         public Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction() { }
         public Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction(System.Data.IsolationLevel isolationLevel) { }
-        public virtual void Dispose() { }
+        public void Dispose() { }
+        protected virtual void Dispose(bool disposing) { }
         public Orc.EntityFrameworkCore.IRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
             where TEntity :  class { }
         public void SaveChanges() { }
