@@ -4,7 +4,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-#if !NET47
 namespace Orc.EntityFrameworkCore
 {
     using System.Threading.Tasks;
@@ -39,4 +38,3 @@ namespace Orc.EntityFrameworkCore
         }
     }
 }
-#endif
