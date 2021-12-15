@@ -2,8 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Transactions;
-
     using Catel;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;

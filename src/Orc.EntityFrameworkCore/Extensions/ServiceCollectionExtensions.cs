@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IServiceCollectionExtensions.cs" company="WildGums">
+// <copyright file="ServiceCollectionExtensions.cs" company="WildGums">
 //   Copyright (c) 2008 - 2019 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -8,7 +8,7 @@ namespace Orc.EntityFrameworkCore
 {
     using Microsoft.Extensions.DependencyInjection;
 
-    public static class IServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
         public static void AddOrcEntityFrameworkCore(this IServiceCollection serviceCollection)
         {
