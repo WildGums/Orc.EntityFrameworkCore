@@ -6,16 +6,14 @@
     using Catel;
     using Catel.Logging;
     using Catel.Reflection;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata;
 
     public static class DbContextExtensions
     {
-        #region Constants
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
-        #endregion
 
-        #region Methods
         public static IEnumerable<object> GetPrimaryKeyValues<TEntity>(this DbContext context, TEntity entity) 
             where TEntity : class
         {
@@ -69,6 +67,5 @@
 
             return modelEntityType;
         }
-#endregion
     }
 }

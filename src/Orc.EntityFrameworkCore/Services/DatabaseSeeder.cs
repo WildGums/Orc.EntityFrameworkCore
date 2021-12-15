@@ -3,7 +3,7 @@
 //   Copyright (c) 2008 - 2019 WildGums. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-#if !NET47
+
 namespace Orc.EntityFrameworkCore
 {
     using System.Threading.Tasks;
@@ -38,4 +38,3 @@ namespace Orc.EntityFrameworkCore
         }
     }
 }
-#endif

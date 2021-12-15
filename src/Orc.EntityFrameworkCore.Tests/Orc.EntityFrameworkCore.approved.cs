@@ -8,6 +8,10 @@ public static class ModuleInitializer
 }
 namespace Orc.EntityFrameworkCore
 {
+    public static class ApplicationBuilderExtensions
+    {
+        public static void UseDatabaseSeeder(this Microsoft.AspNetCore.Builder.IApplicationBuilder @this) { }
+    }
     public class DatabaseSeeder : Orc.EntityFrameworkCore.IDatabaseSeeder
     {
         public DatabaseSeeder() { }
@@ -25,10 +29,6 @@ namespace Orc.EntityFrameworkCore
     public class EntityTypeException : System.Exception
     {
         public EntityTypeException(string message) { }
-    }
-    public static class IApplicationBuilderExtensions
-    {
-        public static void UseDatabaseSeeder(this Microsoft.AspNetCore.Builder.IApplicationBuilder @this) { }
     }
     public interface IDatabaseSeeder
     {
@@ -59,13 +59,6 @@ namespace Orc.EntityFrameworkCore
     }
     public interface IRepository<TEntity, TKey, TDbContext> : Orc.EntityFrameworkCore.IRepository, Orc.EntityFrameworkCore.IRepository<TEntity, TKey>
         where TEntity :  class { }
-    public static class IServiceCollectionExtensions
-    {
-        public static void AddDatabaseSeeder(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
-        public static void AddDatabaseSeeder<TDatabaseSeeder>(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection)
-            where TDatabaseSeeder :  class, Orc.EntityFrameworkCore.IDatabaseSeeder { }
-        public static void AddOrcEntityFrameworkCore(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
-    }
     public interface IUnitOfWork : System.IDisposable
     {
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction BeginTransaction();
@@ -100,6 +93,13 @@ namespace Orc.EntityFrameworkCore
         public void Sync(TEntity entity) { }
         public TEntity TryAddOrUpdate(TEntity entity, params string[] ignoreProperties) { }
         public void Update(TEntity entity) { }
+    }
+    public static class ServiceCollectionExtensions
+    {
+        public static void AddDatabaseSeeder(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
+        public static void AddDatabaseSeeder<TDatabaseSeeder>(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection)
+            where TDatabaseSeeder :  class, Orc.EntityFrameworkCore.IDatabaseSeeder { }
+        public static void AddOrcEntityFrameworkCore(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
     }
     public class UnitOfWork : Orc.EntityFrameworkCore.UnitOfWork<Microsoft.EntityFrameworkCore.DbContext>
     {
