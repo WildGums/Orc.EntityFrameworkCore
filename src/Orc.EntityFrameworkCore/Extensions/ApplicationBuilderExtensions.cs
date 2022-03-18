@@ -1,0 +1,27 @@
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ApplicationBuilderExtensions.cs" company="WildGums">
+//   Copyright (c) 2008 - 2019 WildGums. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Orc.EntityFrameworkCore
+{
+    using Catel;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
+    public static class ApplicationBuilderExtensions
+    {
+        public static void UseDatabaseSeeder(this IApplicationBuilder @this)
+        {
+            Argument.IsNotNull(() => @this);
+
+            using (var serviceScope = @this.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<IDatabaseSeeder>();
+                context.InitializeDatabase(@this);
+            }
+        }
+    }
+}
