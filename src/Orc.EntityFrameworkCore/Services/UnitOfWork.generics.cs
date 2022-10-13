@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using Catel;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
     using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +17,6 @@
     public class UnitOfWork<TDbContext> : IUnitOfWork
         where TDbContext : DbContext, IDisposable
     {
-        #region Fields
         /// <summary>
         ///     The database context.
         /// </summary>
@@ -39,9 +37,7 @@
         /// </summary>
         private readonly IServiceProvider _serviceScopeServiceProvider;
         private bool _disposedValue;
-        #endregion
 
-        #region Constructors
         /// <summary>
         ///     Initializes a new instance of the <see cref="UnitOfWork{TDbContext}" /> class.
         /// </summary>
@@ -50,15 +46,13 @@
         /// </param>
         public UnitOfWork(IServiceProvider serviceProvider)
         {
-            Argument.IsNotNull(() => serviceProvider);
+            ArgumentNullException.ThrowIfNull(serviceProvider);
 
             _serviceScope = serviceProvider.CreateScope();
             _serviceScopeServiceProvider = _serviceScope.ServiceProvider;
-            _dbContext = _serviceScopeServiceProvider.GetService<TDbContext>();
+            _dbContext = _serviceScopeServiceProvider.GetRequiredService<TDbContext>();
         }
-        #endregion
 
-        #region IUnitOfWork Members
         /// <summary>
         ///     Gets a repository instance.
         /// </summary>
@@ -71,9 +65,10 @@
         /// <returns>
         ///     The repository instance.
         /// </returns>
-        public IRepository<TEntity, TKey> GetRepository<TEntity, TKey>() where TEntity : class
+        public IRepository<TEntity, TKey> GetRepository<TEntity, TKey>() 
+            where TEntity : class
         {
-            var repository = (IRepository<TEntity, TKey>)_serviceScopeServiceProvider.GetService(typeof(IRepository<TEntity, TKey>));
+            var repository = (IRepository<TEntity, TKey>)_serviceScopeServiceProvider.GetRequiredService(typeof(IRepository<TEntity, TKey>));
             _repositories.Add(repository);
             return repository;
         }
@@ -84,6 +79,7 @@
         public void SaveChanges()
         {
             _dbContext.SaveChanges();
+
             foreach (var repository in _repositories)
             {
                 repository.Sync();
@@ -134,15 +130,13 @@
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
-        #endregion
     }
 
     public class UnitOfWork : UnitOfWork<DbContext>
     {
-        #region Constructors
-        public UnitOfWork(IServiceProvider serviceProvider) : base(serviceProvider)
+        public UnitOfWork(IServiceProvider serviceProvider) 
+            : base(serviceProvider)
         {
         }
-        #endregion
     }
 }

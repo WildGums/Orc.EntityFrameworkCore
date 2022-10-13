@@ -1,15 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DatabaseSeeder.cs" company="WildGums">
-//   Copyright (c) 2008 - 2019 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Orc.EntityFrameworkCore
+﻿namespace Orc.EntityFrameworkCore
 {
+    using System;
     using System.Threading.Tasks;
-
-    using Catel;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +10,7 @@ namespace Orc.EntityFrameworkCore
     {
         public void InitializeDatabase(IApplicationBuilder appBuilder)
         {
-            Argument.IsNotNull(() => appBuilder);
+            ArgumentNullException.ThrowIfNull(appBuilder);
 
             Migrate(appBuilder);
             SeedAsync(appBuilder).Wait();
@@ -26,7 +18,7 @@ namespace Orc.EntityFrameworkCore
 
         private void Migrate(IApplicationBuilder appBuilder)
         {
-            using (var serviceScope = appBuilder.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = appBuilder.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<DbContext>();
                 context.Database.Migrate();

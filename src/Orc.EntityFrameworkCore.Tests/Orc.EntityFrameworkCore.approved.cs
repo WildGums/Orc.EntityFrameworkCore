@@ -21,7 +21,7 @@ namespace Orc.EntityFrameworkCore
     public static class DbContextExtensions
     {
         public static Microsoft.EntityFrameworkCore.Metadata.IEntityType GetModelEntityType(this Microsoft.EntityFrameworkCore.DbContext context, System.Type entityType) { }
-        public static System.Collections.Generic.IEnumerable<object> GetPrimaryKeyValues<TEntity>(this Microsoft.EntityFrameworkCore.DbContext context, TEntity entity)
+        public static System.Collections.Generic.IEnumerable<object?> GetPrimaryKeyValues<TEntity>(this Microsoft.EntityFrameworkCore.DbContext context, TEntity entity)
             where TEntity :  class { }
         public static void UpdateEntity<TEntity>(this Microsoft.EntityFrameworkCore.DbContext context, TEntity storedEntity, TEntity entity, params string[] ignoreProperties)
             where TEntity :  class { }
@@ -49,7 +49,7 @@ namespace Orc.EntityFrameworkCore
         void Delete(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate);
         void Delete(TEntity entity);
         System.Linq.IQueryable<TEntity> Find(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate);
-        TEntity Get(TKey key);
+        TEntity? Get(TKey key);
         void SaveChanges();
         System.Threading.Tasks.Task SaveChangesAsync();
         TEntity Single(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate);
@@ -85,7 +85,7 @@ namespace Orc.EntityFrameworkCore
         public void Delete(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate) { }
         public void Delete(TEntity entity) { }
         public System.Linq.IQueryable<TEntity> Find(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate) { }
-        public TEntity Get(TKey key) { }
+        public TEntity? Get(TKey key) { }
         public void SaveChanges() { }
         public System.Threading.Tasks.Task SaveChangesAsync() { }
         public TEntity Single(System.Linq.Expressions.Expression<System.Func<TEntity, bool>> predicate) { }

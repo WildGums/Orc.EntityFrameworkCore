@@ -12,12 +12,10 @@
     /// </summary>
     public interface IRepository
     {
-        #region Methods
         /// <summary>
         /// The sync.
         /// </summary>
         void Sync();
-        #endregion
     }
 
     /// <summary>
@@ -29,9 +27,9 @@
     /// <typeparam name="TKey">
     /// The key.
     /// </typeparam>
-    public interface IRepository<TEntity, TKey> : IRepository where TEntity : class
+    public interface IRepository<TEntity, TKey> : IRepository 
+        where TEntity : class
     {
-        #region Methods
         /// <summary>
         /// Adds an entity.
         /// </summary>
@@ -93,7 +91,7 @@
         /// <returns>
         /// The entity.
         /// </returns>
-        TEntity Get(TKey key);
+        TEntity? Get(TKey key);
 
         /// <summary>
         /// Saves the changes.
@@ -157,10 +155,10 @@
         /// The entity.
         /// </param>
         void Update(TEntity entity);
-        #endregion
     }
 
-    public interface IRepository<TEntity, TKey, TDbContext> : IRepository<TEntity, TKey> where TEntity : class
+    public interface IRepository<TEntity, TKey, TDbContext> : IRepository<TEntity, TKey> 
+        where TEntity : class
     {
     }
 }

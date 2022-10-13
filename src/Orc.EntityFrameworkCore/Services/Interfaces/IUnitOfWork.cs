@@ -1,7 +1,6 @@
 ﻿namespace Orc.EntityFrameworkCore
 {
     using System;
-    using System.Transactions;
 
     using Microsoft.EntityFrameworkCore.Storage;
 
@@ -22,7 +21,8 @@
         /// <returns>
         /// The repository instance.
         /// </returns>
-        IRepository<TEntity, TKey> GetRepository<TEntity, TKey>() where TEntity : class;
+        IRepository<TEntity, TKey> GetRepository<TEntity, TKey>() 
+            where TEntity : class;
 
         /// <summary>
         /// Save changes.

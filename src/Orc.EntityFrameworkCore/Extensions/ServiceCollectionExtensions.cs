@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ServiceCollectionExtensions.cs" company="WildGums">
-//   Copyright (c) 2008 - 2019 WildGums. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Orc.EntityFrameworkCore
+﻿namespace Orc.EntityFrameworkCore
 {
     using Microsoft.Extensions.DependencyInjection;
 

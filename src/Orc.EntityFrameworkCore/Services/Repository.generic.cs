@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
-    using Catel;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
 
@@ -25,7 +24,6 @@
     public class Repository<TEntity, TKey, TDbContext> : IRepository<TEntity, TKey, TDbContext>
         where TEntity : class where TDbContext : DbContext
     {
-        #region Fields
         /// <summary>
         /// The database context.
         /// </summary>
@@ -35,9 +33,7 @@
         /// List of dirty entities.
         /// </summary>
         private readonly List<TEntity> _dirtyEntities = new List<TEntity>();
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Repository{TEntity,TKey,TDbContext}" /> class.
         /// </summary>
@@ -46,13 +42,11 @@
         /// </param>
         public Repository(TDbContext context)
         {
-            Argument.IsNotNull(() => context);
+            ArgumentNullException.ThrowIfNull(context);
 
             _context = context;
         }
-        #endregion
 
-        #region IRepository<TEntity,TKey> Members
         /// <summary>
         /// Adds an entity.
         /// </summary>
@@ -61,6 +55,8 @@
         /// </param>
         public void Add(TEntity entity)
         {
+            ArgumentNullException.ThrowIfNull(entity);
+
             _dirtyEntities.Add(_context.Set<TEntity>().Add(entity).Entity);
         }
 
@@ -112,6 +108,8 @@
         /// </returns>
         public bool Contains(Expression<Func<TEntity, bool>> predicate)
         {
+            ArgumentNullException.ThrowIfNull(predicate);
+
             return _context.Set<TEntity>().Any(predicate);
         }
 
@@ -123,6 +121,8 @@
         /// </param>
         public void Delete(TEntity entity)
         {
+            ArgumentNullException.ThrowIfNull(entity);
+
             _context.Set<TEntity>().Remove(entity);
         }
 
@@ -134,6 +134,8 @@
         /// </param>
         public void Delete(Expression<Func<TEntity, bool>> predicate)
         {
+            ArgumentNullException.ThrowIfNull(predicate);
+
             _context.Set<TEntity>().RemoveRange(Find(predicate));
         }
 
@@ -148,6 +150,8 @@
         /// </returns>
         public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
+            ArgumentNullException.ThrowIfNull(predicate);
+
             return _context.Set<TEntity>().Where(predicate);
         }
 
@@ -160,8 +164,10 @@
         /// <returns>
         /// The entity.
         /// </returns>
-        public TEntity Get(TKey key)
+        public TEntity? Get(TKey key)
         {
+            ArgumentNullException.ThrowIfNull(key);
+
             return _context.Set<TEntity>().Find(key);
         }
 
@@ -171,6 +177,7 @@
         public void SaveChanges()
         {
             _context.SaveChanges();
+
             Sync();
         }
 
@@ -180,14 +187,16 @@
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+
             Sync();
         }
 
         public TEntity TryAddOrUpdate(TEntity entity, params string[] ignoreProperties)
         {
-            Argument.IsNotNull(() => entity);
+            ArgumentNullException.ThrowIfNull(entity);
 
             var keyValues = _context.GetPrimaryKeyValues(entity).ToArray();
+
             if (keyValues.Length > 0)
             {
                 var storedEntity = _context.Set<TEntity>().Find(keyValues);
@@ -212,7 +221,9 @@
         /// </returns>
         public TEntity Single(Expression<Func<TEntity, bool>> predicate)
         {
-            return _context.Set<TEntity>().FirstOrDefault(predicate);
+            ArgumentNullException.ThrowIfNull(predicate);
+
+            return _context.Set<TEntity>().Single(predicate);
         }
 
         /// <summary>
@@ -223,6 +234,8 @@
         /// </param>
         public void Sync(TEntity entity)
         {
+            ArgumentNullException.ThrowIfNull(entity);
+
             _context.Entry(entity).Reload();
         }
 
@@ -241,7 +254,7 @@
 
         public void Update(TEntity entity)
         {
-            Argument.IsNotNull(() => entity);
+            ArgumentNullException.ThrowIfNull(entity);
 
             var keyValues = _context.GetPrimaryKeyValues(entity).ToArray();
             var storedEntity = _context.Set<TEntity>().Find(keyValues);
@@ -250,7 +263,6 @@
                 _context.UpdateEntity(storedEntity, entity);
             }
         }
-        #endregion
     }
 
     public class Repository<TEntity, TKey> : Repository<TEntity, TKey, DbContext> 
