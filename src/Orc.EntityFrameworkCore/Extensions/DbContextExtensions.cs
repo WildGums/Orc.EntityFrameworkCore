@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Catel;
     using Catel.Logging;
     using Catel.Reflection;
 
@@ -14,10 +13,11 @@
     {
         private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
-        public static IEnumerable<object> GetPrimaryKeyValues<TEntity>(this DbContext context, TEntity entity) 
+        public static IEnumerable<object?> GetPrimaryKeyValues<TEntity>(this DbContext context, TEntity entity) 
             where TEntity : class
         {
-            Argument.IsNotNull(() => entity);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(entity);
 
             var entityType = typeof(TEntity);
             var modelEntityType = context.GetModelEntityType(entityType);
@@ -28,7 +28,10 @@
                 foreach (var primaryKeyProperty in primaryKey.Properties)
                 {
                     var propertyInfo = entityType.GetPropertyEx(primaryKeyProperty.Name);
-                    yield return propertyInfo.GetValue(entity);
+                    if (propertyInfo is not null)
+                    {
+                        yield return propertyInfo.GetValue(entity);
+                    }
                 }
             }
         }
@@ -36,8 +39,9 @@
         public static void UpdateEntity<TEntity>(this DbContext context, TEntity storedEntity, TEntity entity, params string[] ignoreProperties)
             where TEntity : class
         {
-            Argument.IsNotNull(() => storedEntity);
-            Argument.IsNotNull(() => entity);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(storedEntity);
+            ArgumentNullException.ThrowIfNull(entity);
 
             var entityType = typeof(TEntity);
             var modelEntityType = context.GetModelEntityType(entityType);
@@ -47,7 +51,10 @@
                 if (!ignoreProperties.Contains(property.Name))
                 {
                     var propertyInfo = entityType.GetPropertyEx(property.Name);
-                    propertyInfo.SetValue(storedEntity, propertyInfo.GetValue(entity));
+                    if (propertyInfo is not null)
+                    {
+                        propertyInfo.SetValue(storedEntity, propertyInfo.GetValue(entity));
+                    }
                 }
             }
 
@@ -56,8 +63,8 @@
 
         public static IEntityType GetModelEntityType(this DbContext context, Type entityType)
         {
-            Argument.IsNotNull(() => context);
-            Argument.IsNotNull(() => entityType);
+            ArgumentNullException.ThrowIfNull(context);
+            ArgumentNullException.ThrowIfNull(entityType);
 
             var modelEntityType = context.Model.FindEntityType(entityType);
             if (modelEntityType is null)
