@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="Orc.EntityFrameworkCore.Tests/Orc.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="Orc.EntityFrameworkCore/Orc.EntityFrameworkCore.csproj" />
+  </Folder>
+</Solution>
